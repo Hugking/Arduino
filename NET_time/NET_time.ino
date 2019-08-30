@@ -20,28 +20,30 @@ void STA_set(){
   WiFi.mode(WIFI_STA);
   WiFi.begin("AK", "12345678");
   oled.clearBuffer();
-  oled.drawUTF8(0, 30, "连接中");
+  oled.drawUTF8(0, 20, "连接中");
   int i = 35 ;
   while(!WiFi.isConnected()){
     delay(300);
     Serial.print(".");
     i = i + 3;
     i % 2 == 0 ? digitalWrite(16, LOW):digitalWrite(16, HIGH);
-    oled.drawUTF8(i, 30, " . ");
+    oled.drawUTF8(i, 20, " . ");
     oled.sendBuffer();
     if (i>45){
         oled.clearBuffer();
-        oled.drawUTF8(0, 30, "连接中");
+        oled.drawUTF8(0, 20, "连接中");
         i = 35;
       }
     }
   Serial.println("WiFi is connected");
   Serial.println(WiFi.localIP().toString());
+  ip = WiFi.localIP().toString();
   digitalWrite(16, LOW);
   oled.clearBuffer();
-  oled.drawUTF8(0, 30, "连接成功！");
+  oled.drawUTF8(0, 20, WiFi.localIP().toString().c_str());
   oled.sendBuffer();
   delay(3000);
+  oled.clearBuffer();
 }
 void setup() {
   // put your setup code here, to run once:

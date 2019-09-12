@@ -1,0 +1,716 @@
+[
+    {
+        "id": "2d90dba9.6753ac",
+        "type": "tab",
+        "label": "流程4",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fd7d48b9.bbe208",
+        "type": "mqtt in",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "pdsxy/3203/sensor",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "540a28ab.c2c3a8",
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "177f48f3.50a247"
+            ]
+        ]
+    },
+    {
+        "id": "f3834933.4e0cf",
+        "type": "inject",
+        "z": "2d90dba9.6753ac",
+        "name": "开灯",
+        "topic": "",
+        "payload": "{\"status\":\"on\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 340,
+        "wires": [
+            [
+                "14c81d38.6895bb"
+            ]
+        ]
+    },
+    {
+        "id": "600a1be2.79a2e4",
+        "type": "inject",
+        "z": "2d90dba9.6753ac",
+        "name": "关灯",
+        "topic": "",
+        "payload": "{\"status\":\"off\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "14c81d38.6895bb"
+            ]
+        ]
+    },
+    {
+        "id": "14c81d38.6895bb",
+        "type": "mqtt out",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "pdsxy/3203/led",
+        "qos": "1",
+        "retain": "",
+        "broker": "540a28ab.c2c3a8",
+        "x": 420,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c240e08a.4ef188",
+        "type": "http in",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "url": "/pdsxy",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 520,
+        "wires": [
+            [
+                "66df9037.6da8d8"
+            ]
+        ]
+    },
+    {
+        "id": "9275429d.4455d8",
+        "type": "http response",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "66df9037.6da8d8",
+        "type": "template",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Hello {{payload.name}} !",
+        "output": "str",
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "9275429d.4455d8"
+            ]
+        ]
+    },
+    {
+        "id": "51d6d051.78b2",
+        "type": "http request",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "http://www.nmc.cn/f/rest/real/57171",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 280,
+        "y": 600,
+        "wires": [
+            [
+                "c14634ee.a3d39"
+            ]
+        ]
+    },
+    {
+        "id": "c14634ee.a3d39",
+        "type": "template",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "今天{{payload.weather.info}}",
+        "output": "str",
+        "x": 460,
+        "y": 600,
+        "wires": [
+            [
+                "433e010d.72bb3"
+            ]
+        ]
+    },
+    {
+        "id": "8fd0d936.71ade8",
+        "type": "inject",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 600,
+        "wires": [
+            [
+                "51d6d051.78b2"
+            ]
+        ]
+    },
+    {
+        "id": "433e010d.72bb3",
+        "type": "debug",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 670,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "177f48f3.50a247",
+        "type": "csv",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "10979985.1a9386"
+            ]
+        ]
+    },
+    {
+        "id": "ab69a62c.d954d8",
+        "type": "sentiment",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "property": "payload",
+        "x": 340,
+        "y": 700,
+        "wires": [
+            [
+                "cb138a6c.801078"
+            ]
+        ]
+    },
+    {
+        "id": "8235b112.7859d",
+        "type": "inject",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "",
+        "payload": "you are a bad guy",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "ab69a62c.d954d8"
+            ]
+        ]
+    },
+    {
+        "id": "cb138a6c.801078",
+        "type": "debug",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 500,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "172c8db2.e91eba",
+        "type": "ui_switch",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "label": "switch",
+        "tooltip": "",
+        "group": "af72ef2.f8fa09",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "{\"status\":\"on\"}",
+        "onvalueType": "json",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "{\"status\":\"off\"}",
+        "offvalueType": "json",
+        "officon": "",
+        "offcolor": "",
+        "x": 200,
+        "y": 840,
+        "wires": [
+            [
+                "183f3999.36ae86"
+            ]
+        ]
+    },
+    {
+        "id": "183f3999.36ae86",
+        "type": "mqtt out",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "pdsxy/3203/led",
+        "qos": "1",
+        "retain": "",
+        "broker": "540a28ab.c2c3a8",
+        "x": 420,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "2307229a.9a7db6",
+        "type": "ui_gauge",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "group": "1993aa65.75bf5e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "温度",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 830,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "10979985.1a9386",
+        "type": "split",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "topic",
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "724621ec.533de8",
+                "c54512b8.f06458"
+            ]
+        ]
+    },
+    {
+        "id": "724621ec.533de8",
+        "type": "switch",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "col1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "col2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 670,
+        "y": 180,
+        "wires": [
+            [
+                "2307229a.9a7db6"
+            ],
+            [
+                "a24de912.e94b98"
+            ]
+        ]
+    },
+    {
+        "id": "a24de912.e94b98",
+        "type": "ui_gauge",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "group": "1993aa65.75bf5e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "湿度",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 840,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1d066227.34b06e",
+        "type": "ui_chart",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "group": "3dab2f14.86e4a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c54512b8.f06458",
+        "type": "change",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "topic",
+                "pt": "msg",
+                "from": "col1",
+                "fromt": "str",
+                "to": "温度",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "topic",
+                "pt": "msg",
+                "from": "col2",
+                "fromt": "str",
+                "to": "湿度",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 100,
+        "wires": [
+            [
+                "1d066227.34b06e"
+            ]
+        ]
+    },
+    {
+        "id": "296e09ba.49ce0e",
+        "type": "ui_colour_picker",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "label": "",
+        "group": "51af2ec7.260a8",
+        "format": "hsv",
+        "outformat": "object",
+        "showSwatch": true,
+        "showPicker": true,
+        "showValue": false,
+        "showHue": true,
+        "showAlpha": false,
+        "showLightness": true,
+        "dynOutput": "false",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "x": 450,
+        "y": 320,
+        "wires": [
+            [
+                "5155048c.5d4e7c"
+            ]
+        ]
+    },
+    {
+        "id": "ab2562f.43e56a",
+        "type": "mqtt out",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "pdsxy/3203/huelight",
+        "qos": "1",
+        "retain": "true",
+        "broker": "540a28ab.c2c3a8",
+        "x": 860,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5155048c.5d4e7c",
+        "type": "json",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 640,
+        "y": 320,
+        "wires": [
+            [
+                "ab2562f.43e56a",
+                "7af044b8.19502c"
+            ]
+        ]
+    },
+    {
+        "id": "7af044b8.19502c",
+        "type": "debug",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 820,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6fd820e0.03a96",
+        "type": "ui_template",
+        "z": "2d90dba9.6753ac",
+        "group": "af72ef2.f8fa09",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<iframe src=\"//player.bilibili.com/player.html?aid=66186440&cid=114791169&page=1\" scrolling=\"no\" border=\"0\" frameborder=\"no\" framespacing=\"0\" allowfullscreen=\"true\"> </iframe>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 700,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d1ef82.fd52408",
+        "type": "ui_audio",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "group": "af72ef2.f8fa09",
+        "voice": "zh-CN",
+        "always": "",
+        "x": 380,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "2084f672.b44f92",
+        "type": "inject",
+        "z": "2d90dba9.6753ac",
+        "name": "",
+        "topic": "",
+        "payload": "注意: \"指定时间段周期性执行\" 和 \"指定时间\" 会使用cron系统. 详情查看信息页.",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "3d1ef82.fd52408"
+            ]
+        ]
+    },
+    {
+        "id": "540a28ab.c2c3a8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "tinytaro.cn",
+        "broker": "iot.tinytaro.cn",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "af72ef2.f8fa09",
+        "type": "ui_group",
+        "z": "",
+        "name": "开关",
+        "tab": "8416ac96.efe1c8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "1993aa65.75bf5e",
+        "type": "ui_group",
+        "z": "",
+        "name": "实时",
+        "tab": "f99bfd18.95067",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "3dab2f14.86e4a",
+        "type": "ui_group",
+        "z": "",
+        "name": "历史",
+        "tab": "f99bfd18.95067",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "51af2ec7.260a8",
+        "type": "ui_group",
+        "z": "",
+        "name": "颜色",
+        "tab": "d4b0553e.fd70c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "8416ac96.efe1c8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "智能开关",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f99bfd18.95067",
+        "type": "ui_tab",
+        "z": "",
+        "name": "温湿度计",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d4b0553e.fd70c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "智能灯泡",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]

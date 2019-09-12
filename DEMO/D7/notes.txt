@@ -1,0 +1,26 @@
+三元组：
+{
+  "ProductKey": "a1zNmRN1Egn",
+  "DeviceName": "5ea3e6",
+  "DeviceSecret": "Xp5a4pZDFnHLBsWYkYlMTTfEro9MJPcA"
+}
+
+设备名称和客户端ID使用芯片ID。
+
+MQTT服务器：
+a1zNmRN1Egn.iot-as-mqtt.cn-shanghai.aliyuncs.com
+1883
+
+客户端ID：
+5ea3e6|securemode=3,signmethod=hmacsha256,timestamp=123|
+
+注册用户名：
+5ea3e6&a1zNmRN1Egn
+
+密码：8C668B0B77EF6F83E4DE69201E11E69EF2689A7112FC6D4619AAE16C79DACA1E
+hmacsha256(设备密钥, 散列密钥)
+散列密钥：clientId5ea3e6deviceName5ea3e6productKeya1zNmRN1Egntimestamp123
+clientId   5ea3e6
+deviceName 5ea3e6
+productKey a1zNmRN1Egn
+timestamp  123

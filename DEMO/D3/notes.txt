@@ -1,0 +1,79 @@
+0. 智能硬件原理
+I2C = IIC = Inter-Integrated Circuit
+
+两线总线
+时钟线 SCL 同步总线
+数据线 SDA 半双工
+
+主设备（多个） master
+从设备（多个） slave
+通信都是由主设备发起。
+地址：从设备地址7bit，2^7 = 128 - 16 = 112个设备
+在一个I2C总线上每个设备的从设备地址是唯一的。
+
+#include <U8g2lib.h>
+//使用SSD1306控制器
+//128x64像素
+//无名山寨屏
+//全屏幕缓冲
+//软件I2C控制器（水平方向，SCL=D5，SDA=D6）
+U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, D5, D6);
+
+u8g2.begin();//初始化
+u8g2.setFont(u8g2_font_wqy16_t_gb2312);//使用自带的16像素文泉驿字体，字符集GB2312
+u8g2.clearBuffer();//清空缓冲区
+u8g2.drawUTF8(0, 30, "苟利国家生死以");
+u8g2.drawXBM(0, 0, hqyj_width, hqyj_height, (uint8_t*)hqyj_bits);
+u8g2.sendBuffer();//显示缓冲区内容
+
+https://github.com/olikraus/u8g2/wiki/u8g2reference
+
+1. Wi-Fi协议介绍
+
+2. station编程接口
+扫描：
+a. 调用WiFi对象的scanNetworks方法扫描网络，返回扫描到的网络个数
+b. 然后通过WiFi对象的SSID方法获取扫描到的SSID
+
+连接AP：
+a. 调用WiFi对象的mode方法，设置WiFi工作模式为station(WIFI_STA)
+b. 调用WiFi对象的begin方法，第一个参数是网络的SSID，第二个参数是密码，如果网络不需要密码可以不写第二个参数
+c. 调用WiFi对象的isConnected方法判断是否连接成功。
+d. 连接成功后调用WiFi对象的localIP方法获取开发板的IP地址。
+IPAddress对象的toString()方法将IP地址转换成字符串对象。
+字符串对象的c_str()方法将字符串对象转换成C语言的字符串数组。
+
+2.1 时间同步SNTP
+configTime(8 * 3600, 0, "pool.ntp.org");
+第一个参数是时区偏移
+第二个参数是否使用夏令时
+第三个参数是时间服务器的地址
+
+time(nullptr)获取当前时间
+ctime将当前时间转换为字符串
+使用strftime函数自定义时间格式
+
+3. AP编程接口
+a. 调用WiFi对象的mode方法，设置WiFi工作模式为AP(WIFI_AP)
+b. 调用WiFi对象的softAP方法，设置SSID和访问密码
+c. 调用WiFi对象的softAPIP方法，获取热点IP地址。
+
+3.1 TCP服务器
+    a. 创建WiFiServer对象，指定端口号
+    b. 在setup函数中调用begin方法启动服务器
+    c. 调用server的available方法获取连接到服务器的客户端
+    d. 调用client对象的connected方法获取客户端状态，连接是否断开
+    e. 调用client对象的available方法判断是否有数据可读
+    f. WiFiClient接收和发送数据的使用方法和Serial对象是一样的
+    g. 调用string对象的trim方法删除字符串前后的空白和换行
+
+练习：
+扫描wifi网络
+建立wifi热点
+SNTP时间同步
+TCP服务器
+
+作业：
+网络广告牌
+客户端连接到TCP服务器，发送需要展示的信息，服务器将信息显示到OLED屏幕上
+可以使用AP模式或者STA模式。

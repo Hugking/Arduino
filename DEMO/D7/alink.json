@@ -1,0 +1,20 @@
+{
+    "method": "thing.service.property.set",
+    "id": "1314026738",
+    "params": {
+        "alarm_th": 100
+    },
+    "version": "1.0.0"
+}
+
+{
+    "id": "123",
+    "version": "1.0",
+    "params": {
+        "gas_con": {
+            "value": 100,
+            "time": 1524448722000
+        }
+    },
+    "method": "thing.event.property.post"
+}

@@ -1,0 +1,36 @@
+1. MQTT协议介绍
+
+2. MQTT服务器
+iot.tinytaro.cn
+端口：1883(TCP), 1884(websocket)
+用户名：hqyj
+密码：opensesame
+
+3. MQTT客户端编程
+创建PubSubClient对象，构造函数使用WiFiClient对象作为参数
+调用setServer方法设置MQTT服务器地址和端口号
+调用connect方法连接MQTT服务器，需要指定ClientID作为参数，可以使用ESP8266的芯片ID作为ClientID
+在loop函数中调用PubSubClient对象的loop方法，发送心跳，保持与MQTT服务器的连接
+调用publish方法发布消息到指定主题。
+调用subscribe方法订阅指定主题的消息
+当收到消息时PubSubClient会自动调用回调函数处理消息。
+回调函数在连接MQTT服务器之前，通过setCallback方法设置。
+
+在实际应用中，遗嘱经常和保留消息一起使用，
+以便于通过遗嘱主题来通知订阅者客户端的状态。
+例如，在客户端刚连接上服务器时，它会向遗嘱主题
+NodeMCU/status发送一个内容为“online”的保留消息。
+在连接CONNECT消息中，客户端设置一个内容为“offline”的遗嘱消息，
+并将此消息设为保留消息。如果客户端失联，那么服务器将
+发布内容为“offline”的保留消息。这种模式允许其他客户端
+通过遗嘱主题来观察此客户端的状态，并且因为它是个保留消息，
+所以新连上来的客户端也会立刻就知道此设备的状态。
+
+4. Node-RED介绍
+
+练习：
+通过MQTT获取温湿度信息
+通过MQTT控制LED灯
+
+作业：
+物联网广告牌，通过MQTT协议实现

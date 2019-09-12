@@ -1,0 +1,62 @@
+1. 串口通信原理
+2. Line Feed（换行 LF）和Return（回车 CR）
+3. 串口编程
+Serial对象是对串口的抽象，调用Serial对象的begin方法对串口进行配置。
+begin函数的参数是串口使用的波特率。
+Serial的println方法在串口上输出字符串，并自动输出换行。
+Serial的print方法在串口上输出字符串，不会自动输出换行。
+Serial的available方法返回当前串口上是否有内容可读。
+Serial的readString方法将串口上的内容以字符串的形式读取出来。
+Arduino IDE的串口监视器串口，只能显示UTF-8格式的中文。
+
+4. 字符串处理(C和String类)
+使用“+”号拼接字符串
+比较两个字符串对象可以使用“==”运算符
+
+5. 数字输入
+pinMode(D1, INPUT_PULLUP)使用上拉电阻，使管脚处于稳定状态
+digitalRead(D1);
+
+6. 模拟输入
+将电压转换为数字量
+10bit ADC 0-1024 量程0v - 3.3v
+analogRead(A0)
+
+7. 模拟输出
+使用脉宽调制（PWM）的方式模拟电压的变化
+数字管脚输出方波的占空比越高，电压越高
+analogWrite(16, 0);
+
+8. 驱动蜂鸣器
+tone函数向管脚发送固定频率的方波，驱动蜂鸣器发声
+noTone函数停止方波
+
+9. 中断
+注册中断处理函数
+attachInterrupt(digitalPinToInterrupt(D1), isr, FALLING);
+如何处理抖动
+
+10. 时间处理
+delay毫秒级延时
+delayMicroseconds微秒级延时
+millis系统启动到当前时间经过的毫秒数
+micros系统启动到当前时间经过的微秒数
+
+1秒s = 1000毫秒ms（millisecond） = 1000‘000微秒us（microsecond）
+
+11. 使用继电器，低电平触发
+12. DHT11温湿度传感器
+13. WS2812B灯环
+
+练习：
+通过串口控制LED灯（串口和字符串）
+输入字符回显（字符串）
+按键控制LED灯（数字输入）
+烟雾传感器（模拟输入）
+呼吸灯（模拟输出）
+
+作业：
+可燃气体报警器
+1. 当可燃气体浓度超过阈值时，蜂鸣器开始报警
+2. 浓度降低到阈值以下时，蜂鸣器停止报警
+3. 按键按下后即使可燃气体超过阈值，蜂鸣器停止报警

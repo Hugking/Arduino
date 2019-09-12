@@ -1,0 +1,31 @@
+1. TCP客户端编程
+创建WiFiClient对象，调用connect函数连接服务器，
+第一个参数是服务器的域名或IP地址
+第二个参数是服务器TCP端口号
+接收消息调用read或readString函数
+发送消息调用write或print函数
+
+2. 如何发送一封电子邮件
+SMTP协议：RFC5321
+smtp.qq.com 25
+base64编解码工具：http://tool.oschina.net/encrypt?type=3
+
+ehlo 发送者的主机名
+auth login,
+用户名base64编码
+授权码base64编码
+mail from:<sender@address>
+rcpt to:<receiver@address>
+data
+from:<sender@address>        ----邮件头发件人地址
+to:<receiver@address>        ----邮件头收件人地址
+subject:Hello from NodeMCU   ----邮件标题
+                             ----空行
+xxxxxxxxxxxxxxxxxxxxxxxxx    ----邮件的具体内容
+.
+quit
+
+注意：不要频繁发送标题和内容相同的邮件，会被反垃圾邮件程序过滤掉。
+
+作业：
+给可燃气体报警器增加邮件通知功能，当可燃气体浓度超过阈值时发送一封电子邮件给用户。
